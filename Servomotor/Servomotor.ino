@@ -1,25 +1,25 @@
 IntervalTimer steppingFrequency;
 
 //Define pins for the incremental encoder
-#define EncoderA
-#define EncoderB
+#define EncoderA 1
+#define EncoderB 2
 
 //Define pins for the motor driver
-#define EnableA
-#define EnableB
-#define CurrentControlA
-#define CurrentControlb
-#define StepperA1
-#define StepperA2
-#define StepperB1
-#define StepperB2
+#define EnableA 3
+#define EnableB 4
+#define CurrentControlA 5
+#define CurrentControlB 6
+#define StepperA1 7
+#define StepperA2 8
+#define StepperB1 9
+#define StepperB2 10
 
 //Define pi for the hall effect sensor
-#define HallIn
+#define HallIn 11
 
 volatile long Ticks = 0;
-
 volatile long steps = 0;
+volatile int stepperState = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -37,7 +37,7 @@ void setup() {
   
   pinMode(EnableA,OUTPUT);
   pinMode(EnableB,OUTPUT);
-  pinMode(CurrentCOntrolA,OUTPUT);
+  pinMode(CurrentControlA,OUTPUT);
   pinMode(CurrentControlB,OUTPUT); 
   pinMode(StepperA1,OUTPUT);
   pinMode(StepperA2,OUTPUT);
@@ -56,12 +56,43 @@ void loop() {
 }
 /////////////////////////////////Stepper Functions/////////////////////////////////
 
-setStepperSpeed(int Speed)
+void setStepperSpeed(int Speed)
 {
   steppingFrequency.update(1000000/Speed);
 }
 
-stepCycle(int Step)
+void stopStepper()
+{
+  stepperState = 0;
+}
+
+void moveForward()
+{
+  stepperState = 1;
+}
+
+void moveBackward()
+{
+  stepperState = 2;
+}
+
+void steppingISR()
+{
+  switch (stepperState)
+  {
+    case 0:
+      break;
+    case 1:
+      stepCycle(steps & 0x3);
+      steps++;
+      break;
+    case 2:
+      stepCycle(steps & 0x3);
+      steps--;
+  }
+}
+
+void stepCycle(int Step)
 {
   switch(Step)
   {
@@ -83,7 +114,7 @@ stepCycle(int Step)
       digitalWrite(StepperB1,LOW);
       digitalWrite(StepperB2,HIGH);
       break;
-    case 0:
+    case 3:
       digitalWrite(StepperA1,HIGH);
       digitalWrite(StepperA2,LOW);
       digitalWrite(StepperB1,LOW);
@@ -92,40 +123,10 @@ stepCycle(int Step)
   }
 }
 
-void steppingISR()
-{
-  switch (stepperSate)
-  {
-    case 0:
-      break;
-    case 1:
-      stepCycle(steps & 0x3);
-      steps++;
-      break;
-    case 2:
-      stepCycle(steps & 0x3);
-      steps--;
-  }
-}
-
-void stopStepper()
-{
-  stepperState = 0;
-}
-
-void moveForward()
-{
-  stepperState = 1;
-}
-
-void moveBackward()
-{
-  stepperState = 2;
-}
 ////////////////////////////////////Encoder ISR////////////////////////////////////
 void Arising()
 {
-  if (digitalRead(ChannelB)
+  if (digitalRead(EncoderB))
   {
     Ticks++;
   }else{
@@ -135,17 +136,17 @@ void Arising()
 
 void Afalling()
 {
-  if (digitalRead(ChannelB))
+  if (digitalRead(EncoderB))
   {
     Ticks--;
   }else{
-    ticks++;
+    Ticks++;
   }
 }
 
 void Brising()
 {
-  if (digitalRead(ChannelA))
+  if (digitalRead(EncoderA))
   {
     Ticks--;
   }else{
@@ -155,7 +156,7 @@ void Brising()
 
 void Bfalling()
 {
-  if (digitalRead(ChannelA)
+  if (digitalRead(EncoderA))
   {
     Ticks++;
   }else{
