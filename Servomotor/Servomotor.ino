@@ -1,3 +1,5 @@
+IntervalTimer steppingFrequency;
+
 //Define pins for the incremental encoder
 #define EncoderA
 #define EncoderB
@@ -16,6 +18,8 @@
 #define HallIn
 
 volatile long Ticks = 0;
+
+volatile long steps = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -40,6 +44,8 @@ void setup() {
   pinMode(StepperB1,OUTPUT);
   pinMode(StepperB2,OUTPUT);
 
+  steppingFrequency.begin(steppingISR,1000000);
+
   pinMode(HallIn,INPUT);
 
 }
@@ -48,7 +54,74 @@ void loop() {
   // put your main code here, to run repeatedly:
 
 }
+/////////////////////////////////Stepper Functions/////////////////////////////////
 
+setStepperSpeed(int Speed)
+{
+  steppingFrequency.update(1000000/Speed);
+}
+
+stepCycle(int Step)
+{
+  switch(Step)
+  {
+    case 0:
+      digitalWrite(StepperA1,HIGH);
+      digitalWrite(StepperA2,LOW);
+      digitalWrite(StepperB1,HIGH);
+      digitalWrite(StepperB2,LOW);
+      break;
+    case 1:
+      digitalWrite(StepperA1,LOW);
+      digitalWrite(StepperA2,HIGH);
+      digitalWrite(StepperB1,HIGH);
+      digitalWrite(StepperB2,LOW);
+      break;
+    case 2:
+      digitalWrite(StepperA1,LOW);
+      digitalWrite(StepperA2,HIGH);
+      digitalWrite(StepperB1,LOW);
+      digitalWrite(StepperB2,HIGH);
+      break;
+    case 0:
+      digitalWrite(StepperA1,HIGH);
+      digitalWrite(StepperA2,LOW);
+      digitalWrite(StepperB1,LOW);
+      digitalWrite(StepperB2,HIGH);
+      break;
+  }
+}
+
+void steppingISR()
+{
+  switch (stepperSate)
+  {
+    case 0:
+      break;
+    case 1:
+      stepCycle(steps & 0x3);
+      steps++;
+      break;
+    case 2:
+      stepCycle(steps & 0x3);
+      steps--;
+  }
+}
+
+void stopStepper()
+{
+  stepperState = 0;
+}
+
+void moveForward()
+{
+  stepperState = 1;
+}
+
+void moveBackward()
+{
+  stepperState = 2;
+}
 ////////////////////////////////////Encoder ISR////////////////////////////////////
 void Arising()
 {
