@@ -1,21 +1,21 @@
 IntervalTimer steppingFrequency;
 
 //Define pins for the incremental encoder
-#define EncoderA 1
-#define EncoderB 2
+#define EncoderA 11
+#define EncoderB 12
 
 //Define pins for the motor driver
 #define EnableA 3
 #define EnableB 4
 #define CurrentControlA 5
 #define CurrentControlB 6
-#define StepperA1 7
-#define StepperA2 8
-#define StepperB1 9
-#define StepperB2 10
+#define StepperA1 20
+#define StepperA2 21
+#define StepperB1 22
+#define StepperB2 23
 
 //Define pi for the hall effect sensor
-#define HallIn 11
+#define HallIn 14
 
 volatile long Ticks = 0;
 volatile long steps = 0;
