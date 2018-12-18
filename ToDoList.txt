@@ -1,0 +1,12 @@
+SOFTWARE FEATURES
+implement hall effect force transducer code
+implement control algorithm for servomotor position
+implement control algorithm for servomotor speed
+implement control algorithm for servomotor acceleration
+implement control algorithm for servomotor torque
+Make the code work in a timed based system
+Implement separate control system fit for use on the joystick and the manipulator
+
+CODE APPEARANCE
+Take as much as possible out of the Main 
+Compartimentalise different subsystem and utilities

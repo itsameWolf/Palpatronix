@@ -1,4 +1,4 @@
-IntervalTimer steppingFrequency;
+IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
 
 //Define pins for the incremental encoder
 #define EncoderA 11
@@ -19,7 +19,7 @@ IntervalTimer steppingFrequency;
 
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long steps = 0L;          //Global variable storing motor Steps
-volatile int stepperState = 0;      //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
+volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
 
 void setup() {
   //Set the pins connected to the encoder as inputs
@@ -43,6 +43,12 @@ void setup() {
   pinMode(StepperB1,OUTPUT);
   pinMode(StepperB2,OUTPUT);
 
+  digitalWrite(EnableA,HIGH);
+  digitalWrite(EnableB,HIGH);
+
+  analogWrite(CurrentControlA,125);
+  analogWrite(CurrentControlB,125);
+
   steppingFrequency.begin(steppingISR,1000000);
 
   pinMode(HallIn,INPUT);
@@ -50,15 +56,19 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  unsigned long currentTime = millis();
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
 
 void setStepperSpeed(int Speed)
 {
-  steppingFrequency.update(1000000/Speed);
+  if (Speed == 0)
+  {
+    stopStepper(); 
+  }else{
+    steppingFrequency.update(1000000/Speed);
+  }
 }
 
 void stopStepper()
@@ -80,6 +90,7 @@ void MoveTo(long Target)
 {
   while (Target - Ticks != 0)
   {
+    setStepperSpeed(abs(Target - Ticks)); //Speed decreases as the motor moves closer to the desired position
     if (Target - Ticks > 0)
     {
       moveForward();
@@ -90,6 +101,23 @@ void MoveTo(long Target)
   stopStepper(); 
 }
 /////////////////////////////////Stepper Functions/////////////////////////////////
+void enableStepper()
+{
+  digitalWrite(EnableA,HIGH);
+  digitalWrite(EnableB,HIGH);
+}
+
+void disableStepper()
+{
+  digitalWrite(EnableA,LOW);
+  digitalWrite(EnableB,LOW);
+}
+
+void setCurrent(int I);
+{
+  analogWrite(CurrentControlA,I);
+  analogWrite(CurrentControlB,I);
+}
 
 void steppingISR()
 {
