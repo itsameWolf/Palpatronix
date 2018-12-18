@@ -4,7 +4,7 @@ IntervalTimer steppingFrequency;
 #define EncoderA 11
 #define EncoderB 12
 
-//Define pins for the motor driver
+//Define pins for the motor driver L7207N
 #define EnableA 3
 #define EnableB 4
 #define CurrentControlA 5
@@ -17,24 +17,23 @@ IntervalTimer steppingFrequency;
 //Define pi for the hall effect sensor
 #define HallIn 14
 
-volatile long Ticks = 0;
-volatile long steps = 0;
-volatile int stepperState = 0;
+volatile long Ticks = 0L;          //Global variable storing encoder ticks
+volatile long steps = 0L;          //Global variable storing motor Steps
+volatile int stepperState = 0;      //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
 
 void setup() {
-  // put your setup code here, to run once:
+  //Set the pins connected to the encoder as inputs
   pinMode(EncoderA,INPUT);
   pinMode(EncoderB,INPUT);
 
+  //Enable interrupts for the pins connected to channel A of the encoder for both rising and falling edge
   attachInterrupt(digitalPinToInterrupt(EncoderA),Arising,RISING);
   attachInterrupt(digitalPinToInterrupt(EncoderA),Afalling,FALLING);
-
+  //Enable interrupts for the pins connected to channel B of the encoder for both rising and falling edge
   attachInterrupt(digitalPinToInterrupt(EncoderB),Brising,RISING);
   attachInterrupt(digitalPinToInterrupt(EncoderB),Bfalling,FALLING);
-  
-  //attachInterrupt(digitalPinToInterrupt(EncoderA),ChannelA,CHANGE);
-  //attachInterrupt(digitalPinToInterrupt(EncoderB),ChannelB,CHANGE);
-  
+
+  //Set the pins connected to the motor driver as outputs 
   pinMode(EnableA,OUTPUT);
   pinMode(EnableB,OUTPUT);
   pinMode(CurrentControlA,OUTPUT);
@@ -54,7 +53,8 @@ void loop() {
   // put your main code here, to run repeatedly:
 
 }
-/////////////////////////////////Stepper Functions/////////////////////////////////
+
+//////////////////////////////////Motion Functions//////////////////////////////////
 
 void setStepperSpeed(int Speed)
 {
@@ -76,6 +76,21 @@ void moveBackward()
   stepperState = 2;
 }
 
+void MoveTo(long Target)
+{
+  while (Target - Ticks != 0)
+  {
+    if (Target - Ticks > 0)
+    {
+      moveForward();
+    } else {
+      moveBackward();
+    }
+  }
+  stopStepper(); 
+}
+/////////////////////////////////Stepper Functions/////////////////////////////////
+
 void steppingISR()
 {
   switch (stepperState)
@@ -96,25 +111,25 @@ void stepCycle(int Step)
 {
   switch(Step)
   {
-    case 0:
+    case 0:   //1010
       digitalWrite(StepperA1,HIGH);
       digitalWrite(StepperA2,LOW);
       digitalWrite(StepperB1,HIGH);
       digitalWrite(StepperB2,LOW);
       break;
-    case 1:
+    case 1:   //0110    
       digitalWrite(StepperA1,LOW);
       digitalWrite(StepperA2,HIGH);
       digitalWrite(StepperB1,HIGH);
       digitalWrite(StepperB2,LOW);
       break;
-    case 2:
+    case 2:   //0101
       digitalWrite(StepperA1,LOW);
       digitalWrite(StepperA2,HIGH);
       digitalWrite(StepperB1,LOW);
       digitalWrite(StepperB2,HIGH);
       break;
-    case 3:
+    case 3:  //1001
       digitalWrite(StepperA1,HIGH);
       digitalWrite(StepperA2,LOW);
       digitalWrite(StepperB1,LOW);
@@ -163,52 +178,4 @@ void Bfalling()
     Ticks--;
   }
 }
-
-/*
-void ChannelA()
-{
-  if (digitalRead(EncoderA)
-  {
-    if (digitalRead(EncoderB)
-    {
-      Ticks--  
-    } else 
-    {
-      Ticks++
-    }
-  }else
-  {
-    if (digitalRead(EncoderB)
-    {
-      Ticks++  
-    } else 
-    {
-      Ticks--
-    }
-  }
-}
-
-void ChannelB()
-{
-  if (digitalRead(EncoderB)
-  {
-    if (digitalRead(EncoderA)
-    {
-      Ticks--  
-    } else 
-    {
-      Ticks++
-    }
-  }else
-  {
-    if (digitalRead(EncoderA)
-    {
-      Ticks++  
-    } else 
-    {
-      Ticks--
-    }
-  }
-}
-*/
 
