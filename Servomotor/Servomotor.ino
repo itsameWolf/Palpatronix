@@ -20,6 +20,7 @@ IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long steps = 0L;          //Global variable storing motor Steps
 volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
+long pollingRatio = 2;             //Refresh time of the main loop expressed in millinseconds
 
 void setup() {
   //Set the pins connected to the encoder as inputs
@@ -53,10 +54,17 @@ void setup() {
 
   pinMode(HallIn,INPUT);
 
+  volatile unsigned long previousTime = millis();
+
 }
 
 void loop() {
   unsigned long currentTime = millis();
+  if (currentTime - previousTime >= pollingRatio)  //execute the following code every every 2 milliseconds
+  {
+    
+  }
+  
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
@@ -88,15 +96,12 @@ void moveBackward()
 
 void MoveTo(long Target)
 {
-  while (Target - Ticks != 0)
+  setStepperSpeed(abs(Target - Ticks)); //Speed decreases as the motor moves closer to the desired position
+  if (Target - Ticks > 0)
   {
-    setStepperSpeed(abs(Target - Ticks)); //Speed decreases as the motor moves closer to the desired position
-    if (Target - Ticks > 0)
-    {
       moveForward();
-    } else {
-      moveBackward();
-    }
+  } else {
+    moveBackward();
   }
   stopStepper(); 
 }
