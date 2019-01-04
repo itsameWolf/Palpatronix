@@ -26,6 +26,8 @@ volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
 unsigned int pollingRatio = 2;              //Refresh time of the main loop expressed in millinseconds
 
+volatile long targetPOS = 0;
+
 volatile unsigned long previousTime;
 
 void setup()
@@ -57,6 +59,8 @@ void setup()
   analogWrite(CurrentControlA, 125);
   analogWrite(CurrentControlB, 125);
 
+  Serial.begin(9600);
+  
   steppingFrequency.begin(steppingISR, 1000000);
 
   pinMode(HallIn, INPUT);
@@ -70,6 +74,13 @@ void loop() {
   if (currentTime - previousTime >= pollingRatio)  //execute the following code every every 2 milliseconds
   {
     previousTime = currentTime;
+    
+    Serial.print(Ticks);
+    if (Serial.available())
+    {
+      targetPOS = Serial.parseInt();
+    }
+    MoveTo(targetPOS);
   }
 
 }
