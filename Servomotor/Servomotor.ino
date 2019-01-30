@@ -9,10 +9,10 @@
 #define EnableB 4
 #define CurrentControlA 5
 #define CurrentControlB 6
-#define StepperA1 20
-#define StepperA2 21
-#define StepperB1 22
-#define StepperB2 23
+#define StepperA1 23
+#define StepperA2 22
+#define StepperB1 21
+#define StepperB2 20
 
 //Define pi for the hall effect sensor
 #define HallIn 14
@@ -34,6 +34,7 @@ volatile unsigned long previousStepTime;
 
 void setup()
 {
+  noInterrupts();
   //Set the pins connected to the encoder as inputs
   pinMode(EncoderA, INPUT);
   pinMode(EncoderB, INPUT);
@@ -68,6 +69,11 @@ void setup()
   pinMode(HallIn, INPUT);
 
   previousTime = millis();
+  previousStepTime = millis();
+  interrupts();
+  
+  moveForward();
+  setStepperSpeed(10);
 
 }
 
@@ -78,11 +84,11 @@ void loop() {
     previousTime = currentTime;
     
     Serial.print(Ticks);
-    if (Serial.available())
-    {
-      targetPOS = Serial.parseInt();
-    }
-    MoveTo(targetPOS);
+//    if (Serial.available())
+//    {
+//      targetPOS = Serial.parseInt();
+//    }
+//    MoveTo(targetPOS);
   }
   
   if (currentTime - previousStepTime >= steppingFrequency)  //execute the following whenever a step is needed
