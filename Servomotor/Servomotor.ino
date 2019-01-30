@@ -1,4 +1,4 @@
-IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
+ IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
 
 //Define pins for the incremental encoder
 #define EncoderA 11
@@ -9,10 +9,10 @@ IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
 #define EnableB 4
 #define CurrentControlA 5
 #define CurrentControlB 6
-#define StepperA1 20
-#define StepperA2 21
-#define StepperB1 22
-#define StepperB2 23
+#define StepperA1 23
+#define StepperA2 22
+#define StepperB1 21
+#define StepperB2 20 
 
 //Define pi for the hall effect sensor
 #define HallIn 14
@@ -32,6 +32,7 @@ volatile unsigned long previousTime;
 
 void setup()
 {
+  noInterrupts();
   //Set the pins connected to the encoder as inputs
   pinMode(EncoderA, INPUT);
   pinMode(EncoderB, INPUT);
@@ -66,21 +67,24 @@ void setup()
   pinMode(HallIn, INPUT);
 
   previousTime = millis();
+  interrupts();
 
 }
 
 void loop() {
+  setStepperSpeed(10);
+  moveForward();
   unsigned long currentTime = millis();
   if (currentTime - previousTime >= pollingRatio)  //execute the following code every every 2 milliseconds
   {
     previousTime = currentTime;
     
     Serial.print(Ticks);
-    if (Serial.available())
+    /*if (Serial.available())
     {
       targetPOS = Serial.parseInt();
     }
-    MoveTo(targetPOS);
+    MoveTo(targetPOS);*/
   }
 
 }
