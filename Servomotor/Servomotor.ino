@@ -1,4 +1,4 @@
-IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
+//IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
 
 //Define pins for the incremental encoder
 #define EncoderA 11
@@ -25,10 +25,12 @@ volatile double LastStepperSpeed = 0;
 volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
 unsigned int pollingRatio = 2;              //Refresh time of the main loop expressed in millinseconds
+volatile unsigned long steppingFrequency = 1000;
 
 volatile long targetPOS = 0;
 
 volatile unsigned long previousTime;
+volatile unsigned long previousStepTime;
 
 void setup()
 {
@@ -61,7 +63,7 @@ void setup()
 
   Serial.begin(9600);
   
-  steppingFrequency.begin(steppingISR, 1000000);
+  //steppingFrequency.begin(steppingISR, 1000000);
 
   pinMode(HallIn, INPUT);
 
@@ -82,7 +84,11 @@ void loop() {
     }
     MoveTo(targetPOS);
   }
-
+  
+  if (currentTime - previousStepTime >= steppingFrequency)  //execute the following whenever a step is needed
+  {
+    stepperRun();
+  }
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
@@ -105,7 +111,7 @@ void setStepperSpeed(int Speed)
   {
     stopStepper();
   } else {
-    steppingFrequency.update(1000000 / Speed);
+    steppingFrequency = 1000 / Speed;
   }
 }
 
@@ -154,7 +160,7 @@ void setCurrent(int I)
   analogWrite(CurrentControlB, I);
 }
 
-void steppingISR()
+void stepperRun()
 {
   switch (stepperState)
   {
