@@ -1,0 +1,3 @@
+execution time for all core function/ processes in microseconds
+
+stepperRun()	3

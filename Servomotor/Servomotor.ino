@@ -1,4 +1,4 @@
-//IntervalTimer steppingFrequency;    //Timer regulating the speed of the motor
+//IntervalTimer steppingPeriod;    //Timer regulating the speed of the motor
 
 //Define pins for the incremental encoder
 #define EncoderA 11
@@ -25,9 +25,10 @@ volatile double LastStepperSpeed = 0;
 volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
 unsigned int pollingRatio = 2;              //Refresh time of the main loop expressed in millinseconds
-volatile unsigned long steppingFrequency = 1000;
+volatile unsigned long steppingPeriod = 1000;
+float MaxSpeed = 2;
 
-volatile long targetPOS = 0;
+volatile long targetPOS = 1000000;
 
 volatile unsigned long previousTime;
 volatile unsigned long previousStepTime;
@@ -64,17 +65,13 @@ void setup()
 
   Serial.begin(9600);
   
-  //steppingFrequency.begin(steppingISR, 1000000);
+  //steppingPeriod.begin(steppingISR, 1000000);
 
   pinMode(HallIn, INPUT);
 
   previousTime = millis();
   previousStepTime = millis();
   interrupts();
-  
-  moveForward();
-  setStepperSpeed(10);
-
 }
 
 void loop() {
@@ -83,17 +80,33 @@ void loop() {
   {
     previousTime = currentTime;
     
-    Serial.print(Ticks);
-//    if (Serial.available())
-//    {
-//      targetPOS = Serial.parseInt();
-//    }
-//    MoveTo(targetPOS);
+    Serial.printf("steppingPeriod = %lu",steppingPeriod);
+    Serial.println();
+//    Serial.printf("stepperState = %lu",stepperState);
+//    Serial.println();
+//    Serial.printf("steps = %lu",steps);
+//    Serial.println();
+//    Serial.printf("targetPOS = %lu",targetPOS);
+//    Serial.println();
+     
+    if (Serial.available() )
+    {
+      if (Serial.parseInt()>0) {
+        targetPOS = Serial.parseInt();
+      }
+    }
+    MoveTo(targetPOS);
   }
   
-  if (currentTime - previousStepTime >= steppingFrequency)  //execute the following whenever a step is needed
+  if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed
   {
+//    int st0 = micros();
     stepperRun();
+//    int st1 = micros();
+//    int tt = st1-st0;
+//    Serial.print(currentTime);
+//    Serial.println();
+//    previousStepTime = currentTime;
   }
 }
 
@@ -111,13 +124,17 @@ void updateAcceleration()
   LastStepperSpeed = stepperSpeed;
 }
 
-void setStepperSpeed(int Speed)
+void setStepperSpeed(float Speed)
 {
   if (Speed == 0)
   {
     stopStepper();
   } else {
-    steppingFrequency = 1000 / Speed;
+    if (Speed > MaxSpeed)
+    {
+      Speed = MaxSpeed;
+    }
+    steppingPeriod = 1000 / Speed;
   }
 }
 
@@ -138,14 +155,17 @@ void moveBackward()
 
 void MoveTo(long Target)
 {
-  setStepperSpeed(abs(Target - Ticks)); //Speed decreases as the motor moves closer to the desired position
-  if (Target - Ticks > 0)
+  setStepperSpeed(abs(Target - steps)); //Speed decreases as the motor moves closer to the desired position
+  if (Target - steps > 0)
   {
     moveForward();
-  } else {
+  } 
+  else if (Target - steps < 0) 
+  {
     moveBackward();
+  } else {
+    stopStepper();
   }
-  stopStepper();
 }
 /////////////////////////////////Stepper Functions/////////////////////////////////
 void enableStepper()
