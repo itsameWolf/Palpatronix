@@ -1,6 +1,3 @@
-//Define pi for the hall effect sensor
-#define HallIn 14
-
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks = 0L;
 
@@ -15,6 +12,8 @@ volatile long targetPOS = 200;
 
 unsigned int pollingRatio = 2;              //Refresh time of the main loop expressed in millinseconds
 
+char cmd;
+
 
 volatile unsigned long previousTime;
 volatile unsigned long previousStepTime;
@@ -25,13 +24,10 @@ void setup()
   
   initialiseEncoder();
   initialiseStepperDriver();
+  initialiseForceTransducer();
   
   Serial.begin(9600);
   
-  //steppingPeriod.begin(steppingISR, 1000000);
-
-  pinMode(HallIn, INPUT);
-
   previousTime = millis();
   previousStepTime = millis();
   interrupts();
@@ -48,32 +44,31 @@ void loop() {
 //    Serial.println();
 //    Serial.printf("stepperState = %lu",stepperState);
 //    Serial.println();
-    Serial.printf("steps = %lu",steps);
-    Serial.println();
+//    Serial.printf("steps = %lu",steps);
+//    Serial.println();
 //    Serial.printf("targetPOS = %lu",targetPOS);
 //    Serial.println();
      
     if (Serial.available() )
     {
-      if (Serial.parseInt()>0) {
-        targetPOS = Serial.parseInt();
-      }
+      cmd = Serial.read();
     }
     MoveTo(targetPOS);
   }
   
   if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed
   {
-//    int st0 = micros();
+    previousStepTime = currentTime;
     stepperRun();
+  }
+}
+
+// Code to check process executioon time
+//    int st0 = micros();
 //    int st1 = micros();
 //    int tt = st1-st0;
 //    Serial.print(currentTime);
 //    Serial.println();
-    previousStepTime = currentTime;
-  }
-}
-
 
 
 
