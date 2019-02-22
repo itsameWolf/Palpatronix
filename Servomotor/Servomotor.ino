@@ -8,7 +8,7 @@ volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
 volatile unsigned long steppingPeriod = 1000;
 float MaxSpeed = 20;
-volatile long targetPOS = 200;
+volatile long targetPOS = 0;
 
 unsigned int pollingRatio = 2;              //Refresh time of the main loop expressed in millinseconds
 
@@ -21,12 +21,11 @@ volatile unsigned long previousStepTime;
 void setup()
 {
   noInterrupts();
-  
+
   initialiseEncoder();
   initialiseStepperDriver();
   initialiseForceTransducer();
-  
-  Serial.begin(9600);
+  initialiseGcodeIntrerpreter();
   
   previousTime = millis();
   previousStepTime = millis();
@@ -39,23 +38,23 @@ void loop() {
   if (currentTime - previousTime >= pollingRatio)  //execute the following code every every 2 milliseconds
   {
     previousTime = currentTime;
-    
-//    Serial.printf("steppingPeriod = %lu",steppingPeriod);
-//    Serial.println();
-//    Serial.printf("stepperState = %lu",stepperState);
-//    Serial.println();
-//    Serial.printf("steps = %lu",steps);
-//    Serial.println();
-//    Serial.printf("targetPOS = %lu",targetPOS);
-//    Serial.println();
-     
+
+    //    Serial.printf("steppingPeriod = %lu",steppingPeriod);
+    //    Serial.println();
+    //    Serial.printf("stepperState = %lu",stepperState);
+    //    Serial.println();
+    //    Serial.printf("steps = %lu",steps);
+    //    Serial.println();
+    //    Serial.printf("targetPOS = %lu",targetPOS);
+    //    Serial.println();
+
     if (Serial.available() )
     {
       cmd = Serial.read();
     }
     MoveTo(targetPOS);
   }
-  
+
   if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed
   {
     previousStepTime = currentTime;

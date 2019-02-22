@@ -2,7 +2,7 @@
 #define EncoderA 11
 #define EncoderB 12
 
-void initialiseEncoder() 
+void initialiseEncoder()
 {
   //Set the pins connected to the encoder as inputs
   pinMode(EncoderA, INPUT);

@@ -63,8 +63,8 @@ void MoveTo(long Target)
   if (Target - steps > 0)
   {
     moveForward();
-  } 
-  else if (Target - steps < 0) 
+  }
+  else if (Target - steps < 0)
   {
     moveBackward();
   } else {
