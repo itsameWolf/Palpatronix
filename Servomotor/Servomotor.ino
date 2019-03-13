@@ -6,9 +6,9 @@ volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0
 volatile double LastStepperSpeed = 0;
 volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
-volatile unsigned long steppingPeriod = 1000;
-float MaxSpeed = 20;
-volatile long targetPOS = 0;
+volatile unsigned long steppingPeriod = 10000 ;
+float MaxSpeed = 10; 
+volatile long targetPOS = 100000000 ;
 
 unsigned int pollingRatio = 2;              //Refresh time of the main loop expressed in millinseconds
 
@@ -25,12 +25,11 @@ void setup()
   initialiseEncoder();
   initialiseStepperDriver();
   initialiseForceTransducer();
-  initialiseGcodeIntrerpreter();
+//  initialiseGcodeIntrerpreter();
   
   previousTime = millis();
   previousStepTime = millis();
   interrupts();
-  delay(3000);
 }
 
 void loop() {
@@ -48,10 +47,10 @@ void loop() {
     //    Serial.printf("targetPOS = %lu",targetPOS);
     //    Serial.println();
 
-    if (Serial.available() )
-    {
-      cmd = Serial.read();
-    }
+    //if (Serial.available() )
+    //{
+      //cmd = Serial.read();
+    //}
     MoveTo(targetPOS);
   }
 

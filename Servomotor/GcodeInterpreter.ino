@@ -1,4 +1,4 @@
-#define max_buffer_length 10
+/*#define max_buffer_length 10
 
 char Buffer[max_buffer_length];
 int bufferIndex = 0;
@@ -23,4 +23,4 @@ void readGcode()
     }
   }
 }
-
+*/

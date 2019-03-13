@@ -8,6 +8,35 @@
 #define StepperB1 21
 #define StepperB2 20
 
+volatile long steps = 0L;          //Global variable storing motor Steps
+volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
+volatile double LastStepperSpeed = 0;
+volatile double stepperSpeed = 0;
+volatile double stepperAccel = 0;
+volatile unsigned long steppingPeriod = 100 ;
+float MaxSpeed = 100; 
+volatile long targetPOS = 100000000 ;
+
+volatile unsigned long previousStepTime;
+
+void setup() {
+  // put your setup code here, to run once:
+  initialiseStepperDriver();
+  setStepperSpeed(10);
+  moveForward();
+  previousStepTime = millis();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int currentTime = millis();
+  if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed
+  {
+    previousStepTime = currentTime;
+    stepperRun();
+  }
+}
+
 void initialiseStepperDriver()
 {
   //Set the pins connected to the motor driver as outputs
@@ -27,8 +56,8 @@ void initialiseStepperDriver()
   analogWriteFrequency(CurrentControlB, 750000);
   analogWriteResolution(6);
 
-  analogWrite(CurrentControlA,5);
-  analogWrite(CurrentControlB,5);
+  analogWrite(CurrentControlA,10);
+  analogWrite(CurrentControlB,10);
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
