@@ -8,6 +8,8 @@
 #define StepperB1 21
 #define StepperB2 20
 
+#define MaxCurrent 20
+
 void initialiseStepperDriver()
 {
   //Set the pins connected to the motor driver as outputs
@@ -88,10 +90,22 @@ void disableStepper()
   digitalWrite(EnableB, LOW);
 }
 
-void setCurrent(int I)
+void setCurrentA(int I)
 {
-  analogWrite(CurrentControlA, I);
-  analogWrite(CurrentControlB, I);
+  int i = abs(I);
+  if (i > MaxCurrent)
+  {
+    analogWrite(CurrentControlA, MaxCurrent);
+  }
+}
+
+void setCurrentB(int I)
+{
+  int i = abs(I);
+  if (i > MaxCurrent)
+  {
+    analogWrite(CurrentControlB, MaxCurrent);
+  }
 }
 
 void stepperRun()
@@ -101,11 +115,11 @@ void stepperRun()
     case 0:
       break;
     case 1:
-      stepCycle(steps & 0x3);
+      stepCycle(steps%(4*stepDivider));
       steps++;
       break;
     case 2:
-      stepCycle(steps & 0x3);
+      stepCycle(steps%(4*stepDivider));
       steps--;
   }
 }
@@ -115,29 +129,79 @@ void stepCycle(int Step)
   switch (Step)
   {
     case 0:   //1010
-      digitalWrite(StepperA1, HIGH);
-      digitalWrite(StepperA2, LOW);
-      digitalWrite(StepperB1, HIGH);
-      digitalWrite(StepperB2, LOW);
+      stateFF();
       break;
     case 1:   //0110
-      digitalWrite(StepperA1, LOW);
-      digitalWrite(StepperA2, HIGH);
-      digitalWrite(StepperB1, HIGH);
-      digitalWrite(StepperB2, LOW);
+      stateFB();
       break;
     case 2:   //0101
-      digitalWrite(StepperA1, LOW);
-      digitalWrite(StepperA2, HIGH);
-      digitalWrite(StepperB1, LOW);
-      digitalWrite(StepperB2, HIGH);
+      stateBB()
       break;
     case 3:  //1001
-      digitalWrite(StepperA1, HIGH);
-      digitalWrite(StepperA2, LOW);
-      digitalWrite(StepperB1, LOW);
-      digitalWrite(StepperB2, HIGH);
+      stateBF()
       break;
   }
 }
 
+void microstepCycle(int step)
+{
+  if (!risingA && !rising)
+  {
+    currentA --;
+    currentB ++;
+    if (currentA == MaxCurrent && currentB == 0 && !rising)
+    {
+      stateFB();
+    }
+  }
+
+
+     else if (currentA == 0 && currentB == MaxCurrent)
+    {
+      stateBB();
+      currentA ++;
+      currentB --;
+    } else if ((currentA == MaxCurrent && currentB == 0))
+    {
+      stateBF();
+      currentA --;
+      currentB ++;
+    } else if (currentA == 0 && currentB == MaxCurrent)
+    {
+      stateFF();
+      currentA ++;
+      currentB --;
+    }
+}
+
+void stateFF()
+{
+  digitalWrite(StepperA1, HIGH);
+  digitalWrite(StepperA2, LOW);
+  digitalWrite(StepperB1, HIGH);
+  digitalWrite(StepperB2, LOW);
+}
+
+void stateFB()
+{
+  digitalWrite(StepperA1, LOW);
+  digitalWrite(StepperA2, HIGH);
+  digitalWrite(StepperB1, HIGH);
+  digitalWrite(StepperB2, LOW);
+}
+
+void stateBB()
+{
+  digitalWrite(StepperA1, LOW);
+  digitalWrite(StepperA2, HIGH);
+  digitalWrite(StepperB1, LOW);
+  digitalWrite(StepperB2, HIGH);
+}
+
+void stateBF()
+{
+  digitalWrite(StepperA1, HIGH);
+  digitalWrite(StepperA2, LOW);
+  digitalWrite(StepperB1, LOW);
+  digitalWrite(StepperB2, HIGH);
+}
