@@ -8,7 +8,8 @@
 #define StepperB1 21
 #define StepperB2 20
 
-#define MaxCurrent 20
+#define MaxCurrent 40
+#define CurrentIncrement 4
 
 void initialiseStepperDriver()
 {
@@ -25,12 +26,12 @@ void initialiseStepperDriver()
   digitalWrite(EnableA, HIGH);
   digitalWrite(EnableB, HIGH);
 
-  analogWriteFrequency(CurrentControlA, 750000);
-  analogWriteFrequency(CurrentControlB, 750000);
-  analogWriteResolution(6);
+  analogWriteFrequency(CurrentControlA, 187500 );
+  analogWriteFrequency(CurrentControlB, 187500 );
+  analogWriteResolution(8);
 
-  analogWrite(CurrentControlA,5);
-  analogWrite(CurrentControlB,5);
+  analogWrite(CurrentControlA, 5);
+  analogWrite(CurrentControlB, 5);
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
@@ -93,19 +94,13 @@ void disableStepper()
 void setCurrentA(int I)
 {
   int i = abs(I);
-  if (i > MaxCurrent)
-  {
-    analogWrite(CurrentControlA, MaxCurrent);
-  }
+  analogWrite(CurrentControlA, i);
 }
 
 void setCurrentB(int I)
 {
   int i = abs(I);
-  if (i > MaxCurrent)
-  {
-    analogWrite(CurrentControlB, MaxCurrent);
-  }
+  analogWrite(CurrentControlB, i);
 }
 
 void stepperRun()
@@ -115,12 +110,15 @@ void stepperRun()
     case 0:
       break;
     case 1:
-      stepCycle(steps%(4*stepDivider));
-      steps++;
+      microstepForward();
+      setCurrentA(currentA);
+      setCurrentB(currentB);
       break;
     case 2:
-      stepCycle(steps%(4*stepDivider));
-      steps--;
+      microstepBackward();
+      setCurrentA(currentA);
+      setCurrentB(currentB);
+      break;
   }
 }
 
@@ -135,17 +133,107 @@ void stepCycle(int Step)
       stateFB();
       break;
     case 2:   //0101
-      stateBB()
+      stateBB();
       break;
     case 3:  //1001
-      stateBF()
+      stateBF();
       break;
   }
 }
 
-void microstepCycle(int step)
+void microstepCycle()
 {
-  
+  switch (stepperState)
+  {
+    case 1:
+      microstepForward();
+    case 2:
+      microstepBackward();
+  }
+}
+
+void microstepForward()
+{
+  if (currentA == 0 && currentB == MaxCurrent)
+  {
+    quadrantFlag = 0; 
+  }
+  else if (currentA == MaxCurrent && currentB == 0)
+  {
+    quadrantFlag = 1;
+  }
+  else if (currentA == 0 && currentB == -(MaxCurrent))
+  {
+    quadrantFlag = 2;
+  }
+  else if (currentA == -MaxCurrent && currentB == 0)
+  {
+    quadrantFlag = 3;
+  }
+  switch (quadrantFlag)
+  {
+    case 0:
+      stateFF();
+      currentA += CurrentIncrement;
+      currentB -= CurrentIncrement;
+      break;
+    case 1:
+      stateFB();
+      currentA -= CurrentIncrement;
+      currentB -= CurrentIncrement;
+      break;
+    case 2:
+      stateBB();
+      currentA -= CurrentIncrement;
+      currentB += CurrentIncrement;
+      break;
+    case 3:
+      stateBF();
+      currentA += CurrentIncrement;
+      currentB += CurrentIncrement;
+      break;
+  }
+  steps ++;
+}
+
+void microstepBackward()
+{
+  if (currentA == 0 && currentB == MaxCurrent)
+  {
+    quadrantFlag = 3;
+  }
+  else if (currentA == MaxCurrent && currentB == 0)
+  {
+    quadrantFlag = 2;
+  }
+  else if (currentA == 0 && currentB == -MaxCurrent)
+  {
+    quadrantFlag = 1;
+  }
+  else if (currentA == -MaxCurrent && currentB == 0)
+  {
+    quadrantFlag = 0;
+  }
+  switch (quadrantFlag)
+  {
+    case 0:
+      currentA ++;
+      currentB --;
+      break;
+    case 1:
+      currentA --;
+      currentB --;
+      break;
+    case 2:
+      currentA --;
+      currentB ++;
+      break;
+    case 3:
+      currentA --;
+      currentB ++;
+      break;
+  }
+  steps --;
 }
 
 void stateFF()

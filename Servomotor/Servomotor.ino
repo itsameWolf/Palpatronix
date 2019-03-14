@@ -1,17 +1,16 @@
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks = 0L;
 
-volatile bool risingA = 0;
-volatile bool risingB = 0;
-volatile int currentA = MaxCurrent;
+
+volatile int quadrantFlag;
+volatile int currentA = 40;
 volatile int currentB = 0;
-volatile int stepDivider = 4;
 volatile long steps = 0L;          //Global variable storing motor Steps
 volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
 volatile double LastStepperSpeed = 0;
 volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
-volatile unsigned long steppingPeriod = 10000 ;
+volatile unsigned long steppingPeriod = 10 ;
 float MaxSpeed = 10; 
 volatile long targetPOS = 100000000 ;
 
@@ -30,11 +29,13 @@ void setup()
   initialiseEncoder();
   initialiseStepperDriver();
   initialiseForceTransducer();
-//  initialiseGcodeIntrerpreter();
+  initialiseGcodeIntrerpreter();
   
   previousTime = millis();
   previousStepTime = millis();
   interrupts();
+  
+  moveForward();
 }
 
 void loop() {
@@ -56,13 +57,19 @@ void loop() {
     //{
       //cmd = Serial.read();
     //}
-    MoveTo(targetPOS);
+    //MoveTo(targetPOS);
   }
 
   if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed
   {
     previousStepTime = currentTime;
+    //int t0 = micros();
     stepperRun();
+    //int t1 = micros();
+    //int t = t1-t0;
+    //Serial.printf("execution time: %d micros \n", t);
+    //Serial.printf("A: %d   B: %d    Q: %d \n", currentA, currentB, quadrantFlag);
+    //Serial.println();
   }
 }
 
