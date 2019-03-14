@@ -145,33 +145,7 @@ void stepCycle(int Step)
 
 void microstepCycle(int step)
 {
-  if (!risingA && !rising)
-  {
-    currentA --;
-    currentB ++;
-    if (currentA == MaxCurrent && currentB == 0 && !rising)
-    {
-      stateFB();
-    }
-  }
-
-
-     else if (currentA == 0 && currentB == MaxCurrent)
-    {
-      stateBB();
-      currentA ++;
-      currentB --;
-    } else if ((currentA == MaxCurrent && currentB == 0))
-    {
-      stateBF();
-      currentA --;
-      currentB ++;
-    } else if (currentA == 0 && currentB == MaxCurrent)
-    {
-      stateFF();
-      currentA ++;
-      currentB --;
-    }
+  
 }
 
 void stateFF()

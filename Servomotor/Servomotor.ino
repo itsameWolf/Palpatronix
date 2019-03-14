@@ -1,6 +1,11 @@
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks = 0L;
 
+volatile bool risingA = 0;
+volatile bool risingB = 0;
+volatile int currentA = MaxCurrent;
+volatile int currentB = 0;
+volatile int stepDivider = 4;
 volatile long steps = 0L;          //Global variable storing motor Steps
 volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
 volatile double LastStepperSpeed = 0;
