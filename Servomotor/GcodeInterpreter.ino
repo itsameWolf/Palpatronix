@@ -2,12 +2,12 @@
 
 char Buffer[max_buffer_length];
 int bufferIndex = 0;
-
-void iitialiseGcodeInterpreter()
+*/
+void initialiseGcodeIntrerpreter()
 {
   Serial.begin(9600);
 }
-
+/*
 void readGcode()
 {
   if (Serial.available())
