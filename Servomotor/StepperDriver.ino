@@ -1,4 +1,6 @@
 //Define pins for the motor driver L7207N
+#define sine {0,17,32,47,60,70,78,85,85,78,70,60,47,32,17,0,0,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,0}
+
 #define EnableA 3
 #define EnableB 4
 #define CurrentControlA 5
@@ -35,7 +37,7 @@ void initialiseStepperDriver()
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
-void setStepperSpeed(float Speed)
+void setStepperSpeed(int Speed)
 {
   if (Speed == 0)
   {
