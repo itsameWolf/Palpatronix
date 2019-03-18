@@ -1,4 +1,4 @@
-//Define pins for the motor driver L7207N
+ //Define pins for the motor driver L7207N
 #define EnableA 3
 #define EnableB 4
 #define CurrentControlA 5
@@ -8,8 +8,8 @@
 #define StepperB1 21
 #define StepperB2 20
 
-#define MaxCurrent 40
-#define CurrentIncrement 4
+#define MaxCurrent 80
+#define CurrentIncrement 40
 
 void initialiseStepperDriver()
 {
@@ -30,8 +30,8 @@ void initialiseStepperDriver()
   analogWriteFrequency(CurrentControlB, 187500 );
   analogWriteResolution(8);
 
-  analogWrite(CurrentControlA, 5);
-  analogWrite(CurrentControlB, 5);
+  analogWrite(CurrentControlA, 0);
+  analogWrite(CurrentControlB, 0);
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
