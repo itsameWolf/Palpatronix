@@ -1,6 +1,7 @@
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks = 0L;
 
+
 volatile int quadrantFlag;
 volatile int currentA = 80;
 volatile int currentB = 0;
