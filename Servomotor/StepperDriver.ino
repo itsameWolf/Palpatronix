@@ -292,15 +292,46 @@ void BBackward()
   digitalWrite(StepperB2, HIGH);
 }
 
-void step()
+void ABrake()
 {
-  switch (stepperState)
+  digitalWrite(StepperA1, LOW);
+  digitalWrite(StepperA2, LOW);
+}
+
+void BBrake()
+{
+  digitalWrite(StepperB1, LOW);
+  digitalWrite(StepperB2, LOW);
+}
+
+void microstep()
+{
+  if (stepperState == 2)
+  {
+    currentA = sine[(steps % 32)];
+    currentB = cosine[(steps % 32)];
+    Serial.printf("b");
+  } 
+  else if (stepperState == 1)
+  {
+    currentA = sine[(steps % 32)];
+    currentB = cosineR[(steps % 32)];
+    Serial.printf("f");
+  }
+  bridgeState();
+  setCurrentA(currentA);
+  setCurrentB(currentB);
+  steps++;
+  /*switch (stepperState)
   {
     case 0:
       break;
     case 1:
       currentA = sine[(steps % 32)];
       currentB = cosine[(steps % 32)];
+      steps++;
+      setCurrentA(currentA);
+      setCurrentB(currentB);
       steps++;
       break;
     case 2:
@@ -311,29 +342,29 @@ void step()
       setCurrentB(currentB);
       steps++;
       break;
-  }
+  }*/
 }
 
 void bridgeState()
 {
-  if (currentA >= 0)
+  if (currentA > 0)
   {
     AForward();
-    Serial.printf("f");
+    //Serial.printf("f");
   }
   else if (currentA < 0)
   {
     ABackward();
-    Serial.printf("b");
+    //Serial.printf("b");
   }
-  if (currentB >= 0)
+  if (currentB > 0)
   {
     BForward();
-    Serial.printf("f");
+    //Serial.printf("f");
   }
   else if (currentB < 0)
   {
     BBackward();
-    Serial.printf("b \n");
+    //Serial.printf("b \n");
   }
 }

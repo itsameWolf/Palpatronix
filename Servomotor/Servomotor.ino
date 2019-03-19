@@ -1,10 +1,12 @@
 volatile long Ticks = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks = 0L;
 
-int sine[32] =  {1,17,32,47,60,70,78,85,85,78,70,60,47,32,17,1,-1,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,-1};
-int cosine[32] =  {85,78,70,60,47,32,17,1,-1,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,-1,1,17,32,47,60,70,78,85};
+//int sine[32] =  {1,17,32,47,60,70,78,85,85,78,70,60,47,32,17,1,-1,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,-1};
+//int cosine[32] =  {85,78,70,60,47,32,17,1,-1,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,-1,1,17,32,47,60,70,78,85};
 
-
+int sine[32] =  {0,8,16,24,30,35,39,42,42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42,-42,-39,-35,-30,-24,-16,-8,0};
+int cosine[32] =  {42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42,-42,-39,-35,-30,-24,-16,-8,0,0,8,16,24,30,35,39,42};
+int cosineR[32] =  {-42,-39,-35,-30,-24,-16,-8,0,0,8,16,24,30,35,39,42,42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42};
 
 volatile int quadrantFlag;
 volatile int currentA = 40;
@@ -14,7 +16,7 @@ volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0
 volatile double LastStepperSpeed = 0;
 volatile double stepperSpeed = 0;
 volatile double stepperAccel = 0;
-volatile unsigned long steppingPeriod = 2 ;
+volatile unsigned long steppingPeriod = 5 ;
 float MaxSpeed = 10; 
 volatile long targetPOS = 100000000 ;
 
@@ -39,8 +41,8 @@ void setup()
   previousStepTime = millis();
   interrupts();
 
-  //moveForward();
-  moveBackward();
+  moveForward();
+  //moveBackward();
 }
 
 void loop() {
@@ -70,13 +72,18 @@ void loop() {
     previousStepTime = currentTime;
     //int t0 = micros();
     //stepperRun();
-    step();
+    microstep();
     //int t1 = micros();
     //int t = t1-t0;
     //Serial.printf("execution time: %d micros \n", t);
     //Serial.printf("State: %d \n", stepperState);
-    Serial.printf("A: %d   B: %d \n", currentA, currentB);
+    Serial.printf("A: %d   B: %d  ss: %d \n", currentA, currentB, stepperState);
     //Serial.println();
+  }
+
+  if (currentTime > 7000)
+  {
+    moveBackward();
   }
 }
 
