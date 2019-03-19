@@ -311,7 +311,6 @@ void step()
       setCurrentB(currentB);
       steps++;
       break;
-      
   }
 }
 
