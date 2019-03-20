@@ -24,9 +24,9 @@ void initialiseStepperDriver()
   digitalWrite(EnableA, HIGH);
   digitalWrite(EnableB, HIGH);
 
-  analogWriteFrequency(CurrentControlA, 187500 );
-  analogWriteFrequency(CurrentControlB, 187500 );
-  analogWriteResolution(8);
+  analogWriteFrequency(CurrentControlA, 46875);
+  analogWriteFrequency(CurrentControlB, 46875);
+  analogWriteResolution(10);
 
   analogWrite(CurrentControlA, 5);
   analogWrite(CurrentControlB, 5);
@@ -51,15 +51,15 @@ void moveBackward()
 
 /////////////////////////////////Stepper Functions/////////////////////////////////
 
-void setCurrentA(int I)
+void setCurrentA()
 {
-  int i = abs(I);
+  int i = abs(IA);
   analogWrite(CurrentControlA, i);
 }
 
-void setCurrentB(int I)
+void setCurrentB()
 {
-  int i = abs(I);
+  int i = abs(IB);
   analogWrite(CurrentControlB, i);
 }
 
@@ -89,26 +89,69 @@ void BBackward()
 
 void microstep()
 {
-  switch (stepperState)
+
+  if (stepperState == 1)
   {
-    case 0:
-      break;
-    case 1:
-      currentA = sine[(steps % 32)];
-      currentB = cosine[(steps % 32)];
-      bridgeState();
-      setCurrentA(currentA);
-      setCurrentB(currentB);
-      steps++;
-      break;
-    case 2:
-      currentA = cosine[(steps % 32)];
-      currentB = sine[(steps % 32)];
-      bridgeState();
-      setCurrentA(currentA);
-      setCurrentB(currentB);
-      steps++;
-      break;
+    if (steps < 16)
+    {
+      currentA = sine[(steps % 16)];
+      currentB = sine[(15 - (steps % 16))];
+    }
+    else if (steps < 32)
+    {
+      currentA = sine[(15 - (steps % 16))];
+      currentB = -(sine[(steps % 16)]);
+    }
+    else if (steps < 48)
+    {
+      currentA = -(sine[(steps % 16)]);
+      currentB = -(sine[(15 - (steps % 16))]);
+    }
+    else
+    {
+      currentA = -(sine[(15 - (steps % 16))]);
+      currentB = sine[(steps % 16)];
+    }
+  }
+  else if (stepperState == 2)
+  {
+    {
+      if (steps < 16)
+      {
+        currentA = sine[(steps % 16)];
+        currentB = -(sine[(15 - (steps % 16))]);
+      }
+      else if (steps < 32)
+      {
+        currentA = sine[(15 - (steps % 16))];
+        currentB = sine[(steps % 16)];
+      }
+      else if (steps < 48)
+      {
+        currentA = -(sine[(steps % 16)]);
+        currentB = sine[(15 - (steps % 16))];
+      }
+      else
+      {
+        currentA = -(sine[(15 - (steps % 16))]);
+        currentB = -(sine[(steps % 16)]);
+      }
+    }
+  }
+  bridgeState();
+  currentA = currentA * MaxCurrent;
+  currentB = currentB * MaxCurrent;
+  IA = (int) currentA;
+  IB = (int) currentB;
+  setCurrentA();
+  setCurrentB();
+  if (steps >= 63)
+  {
+    steps = 0;
+  }
+  else
+  {
+    steps++;
   }
 }
 
@@ -117,21 +160,17 @@ void bridgeState()
   if (currentA >= 0)
   {
     AForward();
-    //Serial.printf("f");
   }
   else if (currentA < 0)
   {
     ABackward();
-    //Serial.printf("b");
   }
   if (currentB >= 0)
   {
     BForward();
-    //Serial.printf("f");
   }
   else if (currentB < 0)
   {
     BBackward();
-    //Serial.printf("b \n");
   }
 }
