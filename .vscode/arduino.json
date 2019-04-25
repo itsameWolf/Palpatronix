@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:diecimila",
+    "configuration": "cpu=atmega328",
+    "sketch": "Servomotor\\sketch_mar13b\\sketch_mar13b.ino"
+}
