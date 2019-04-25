@@ -30,8 +30,8 @@ void initialiseStepperDriver()
   analogWriteFrequency(CurrentControlB, 187500 );
   analogWriteResolution(8);
 
-  analogWrite(CurrentControlA, 5);
-  analogWrite(CurrentControlB, 5);
+  analogWrite(CurrentControlA, 255);
+  analogWrite(CurrentControlB, 0);
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////

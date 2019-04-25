@@ -1,4 +1,4 @@
-//Define pins for the incremental encoder
+  //Define pins for the incremental encoder
 #define EncoderA 11
 #define EncoderB 12
 
