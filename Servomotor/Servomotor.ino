@@ -8,9 +8,9 @@ volatile long lastTicks = 0L;
 //int cosine[32] =  {42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42,-42,-39,-35,-30,-24,-16,-8,0,0,8,16,24,30,35,39,42};
 //int cosineR[32] =  {-42,-39,-35,-30,-24,-16,-8,0,0,8,16,24,30,35,39,42,42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42};
 
-float sine[16] = {0.0, 0.09, 0.19, 0.29, 0.38, 0.47, 0.55, 0.63, 0.70, 0.77, 0.83, 0.88, 0.92, 0.95, 0.98, 0.99}
+float sine[16] = {0.0, 0.09, 0.19, 0.29, 0.38, 0.47, 0.55, 0.63, 0.70, 0.77, 0.83, 0.88, 0.92, 0.95, 0.98, 0.99};
 
-                 volatile int quadrantFlag;
+volatile int quadrantFlag;
 volatile int currentA = 40;
 volatile int currentB = 0;
 volatile int currentMultiplier = 10;
@@ -75,7 +75,7 @@ void loop() {
     previousStepTime = currentTime;
     //int t0 = micros();
     //stepperRun();
-    microstep();
+    //microstep();
     //int t1 = micros();
     //int t = t1-t0;
     //Serial.printf("execution time: %d micros \n", t);
