@@ -1,358 +1,358 @@
-strength: 2120 , time: 500 
-strength: 2118 , time: 700 
-strength: 2111 , time: 900 
-strength: 2114 , time: 1100 
-strength: 2115 , time: 1300 
-strength: 2095 , time: 1500 
-strength: 2088 , time: 1700 
-strength: 2096 , time: 1900 
-strength: 2085 , time: 2100 
-strength: 2085 , time: 2300 
-strength: 2083 , time: 2501 
-strength: 2099 , time: 2701 
-strength: 2075 , time: 2901 
-strength: 2076 , time: 3101 
-strength: 2076 , time: 3301 
-strength: 2068 , time: 3501 
-strength: 2069 , time: 3701 
-strength: 2047 , time: 3901 
-strength: 2066 , time: 4101 
-strength: 2064 , time: 4301 
-strength: 2064 , time: 4501 
-strength: 2059 , time: 4701 
-strength: 2062 , time: 4901 
-strength: 2054 , time: 5101 
-strength: 2054 , time: 5301 
-strength: 2054 , time: 5502 
-strength: 2045 , time: 5702 
-strength: 2055 , time: 5902 
-strength: 2042 , time: 6102 
-strength: 2031 , time: 6302 
-strength: 2036 , time: 6502 
-strength: 2034 , time: 6702 
-strength: 2035 , time: 6902 
-strength: 2034 , time: 7102 
-strength: 2031 , time: 7302 
-strength: 2025 , time: 7502 
-strength: 2019 , time: 7702 
-strength: 2014 , time: 7902 
-strength: 2013 , time: 8102 
-strength: 2013 , time: 8302 
-strength: 2007 , time: 8503 
-strength: 2006 , time: 8703 
-strength: 2000 , time: 8903 
-strength: 1995 , time: 9103 
-strength: 2001 , time: 9303 
-strength: 1990 , time: 9503 
-strength: 1987 , time: 9703 
-strength: 1980 , time: 9903 
-strength: 1983 , time: 10103 
-strength: 1979 , time: 10303 
-strength: 1976 , time: 10503 
-strength: 1974 , time: 10703 
-strength: 1964 , time: 10903 
-strength: 1971 , time: 11103 
-strength: 1959 , time: 11303 
-strength: 1961 , time: 11504 
-strength: 1956 , time: 11704 
-strength: 1949 , time: 11904 
-strength: 1946 , time: 12104 
-strength: 1954 , time: 12304 
-strength: 1944 , time: 12504 
-strength: 1942 , time: 12704 
-strength: 1939 , time: 12904 
-strength: 1933 , time: 13104 
-strength: 1934 , time: 13304 
-strength: 1932 , time: 13504 
-strength: 1930 , time: 13704 
-strength: 1925 , time: 13904 
-strength: 1914 , time: 14104 
-strength: 1907 , time: 14305 
-strength: 1915 , time: 14505 
-strength: 1910 , time: 14705 
-strength: 1903 , time: 14905 
-strength: 1892 , time: 15105 
-strength: 1877 , time: 15305 
-strength: 1883 , time: 15505 
-strength: 1874 , time: 15705 
-strength: 1875 , time: 15905 
-strength: 1865 , time: 16105 
-strength: 1865 , time: 16305 
-strength: 1858 , time: 16505 
-strength: 1861 , time: 16705 
-strength: 1843 , time: 16905 
-strength: 1849 , time: 17105 
-strength: 1837 , time: 17306 
-strength: 1837 , time: 17506 
-strength: 1834 , time: 17706 
-strength: 1841 , time: 17906 
-strength: 1822 , time: 18106 
-strength: 1824 , time: 18306 
-strength: 1822 , time: 18506 
-strength: 1820 , time: 18706 
-strength: 1815 , time: 18906 
-strength: 1814 , time: 19106 
-strength: 1807 , time: 19306 
-strength: 1805 , time: 19506 
-strength: 1797 , time: 19706 
-strength: 1800 , time: 19906 
-strength: 1788 , time: 20107 
-strength: 1785 , time: 20307 
-strength: 1781 , time: 20507 
-strength: 1787 , time: 20707 
-strength: 1770 , time: 20907 
-strength: 1769 , time: 21107 
-strength: 1764 , time: 21307 
-strength: 1761 , time: 21507 
-strength: 1754 , time: 21707 
-strength: 1747 , time: 21907 
-strength: 1745 , time: 22107 
-strength: 1742 , time: 22307 
-strength: 1738 , time: 22507 
-strength: 1727 , time: 22707 
-strength: 1742 , time: 22908 
-strength: 1713 , time: 23108 
-strength: 1722 , time: 23308 
-strength: 1710 , time: 23508 
-strength: 1709 , time: 23708 
-strength: 1704 , time: 23908 
-strength: 1697 , time: 24108 
-strength: 1698 , time: 24308 
-strength: 1696 , time: 24508 
-strength: 1689 , time: 24708 
-strength: 1682 , time: 24908 
-strength: 1687 , time: 25108 
-strength: 1680 , time: 25308 
-strength: 1669 , time: 25508 
-strength: 1675 , time: 25708 
-strength: 1657 , time: 25909 
-strength: 1658 , time: 26109 
-strength: 1642 , time: 26309 
-strength: 1645 , time: 26509 
-strength: 1642 , time: 26709 
-strength: 1632 , time: 26909 
-strength: 1628 , time: 27109 
-strength: 1630 , time: 27309 
-strength: 1625 , time: 27509 
-strength: 1602 , time: 27709 
-strength: 1611 , time: 27909 
-strength: 1598 , time: 28109 
-strength: 1588 , time: 28309 
-strength: 1597 , time: 28509 
-strength: 1581 , time: 28710 
-strength: 1578 , time: 28910 
-strength: 1577 , time: 29110 
-strength: 1574 , time: 29310 
-strength: 1567 , time: 29510 
-strength: 1562 , time: 29710 
-strength: 1565 , time: 29910 
-strength: 1558 , time: 30110 
-strength: 1546 , time: 30310 
-strength: 1544 , time: 30510 
-strength: 1544 , time: 30710 
-strength: 1538 , time: 30910 
-strength: 1536 , time: 31110 
-strength: 1522 , time: 31310 
-strength: 1524 , time: 31510 
-strength: 1510 , time: 31711 
-strength: 1514 , time: 31911 
-strength: 1506 , time: 32111 
-strength: 1498 , time: 32311 
-strength: 1494 , time: 32511 
-strength: 1484 , time: 32711 
-strength: 1483 , time: 32911 
-strength: 1476 , time: 33111 
-strength: 1469 , time: 33311 
-strength: 1466 , time: 33511 
-strength: 1462 , time: 33711 
-strength: 1456 , time: 33911 
-strength: 1452 , time: 34111 
-strength: 1444 , time: 34311 
-strength: 1443 , time: 34512 
-strength: 1438 , time: 34712 
-strength: 1432 , time: 34912 
-strength: 1433 , time: 35112 
-strength: 1423 , time: 35312 
-strength: 1417 , time: 35512 
-strength: 1411 , time: 35712 
-strength: 1413 , time: 35912 
-strength: 1398 , time: 36112 
-strength: 1393 , time: 36312 
-strength: 1392 , time: 36512 
-strength: 1376 , time: 36712 
-strength: 1375 , time: 36912 
-strength: 1367 , time: 37112 
-strength: 1356 , time: 37313 
-strength: 1358 , time: 37513 
-strength: 1346 , time: 37713 
-strength: 1333 , time: 37913 
-strength: 1329 , time: 38113 
-strength: 1322 , time: 38313 
-strength: 1319 , time: 38513 
-strength: 1316 , time: 38713 
-strength: 1312 , time: 38913 
-strength: 1308 , time: 39113 
-strength: 1299 , time: 39313 
-strength: 1297 , time: 39513 
-strength: 1296 , time: 39713 
-strength: 1290 , time: 39913 
-strength: 1277 , time: 40113 
-strength: 1282 , time: 40314 
-strength: 1287 , time: 40514 
-strength: 1266 , time: 40714 
-strength: 1260 , time: 40914 
-strength: 1250 , time: 41114 
-strength: 1237 , time: 41314 
-strength: 1246 , time: 41514 
-strength: 1229 , time: 41714 
-strength: 1233 , time: 41914 
-strength: 1220 , time: 42114 
-strength: 1215 , time: 42314 
-strength: 1213 , time: 42514 
-strength: 1206 , time: 42714 
-strength: 1208 , time: 42914 
-strength: 1199 , time: 43115 
-strength: 1193 , time: 43315 
-strength: 1189 , time: 43515 
-strength: 1184 , time: 43715 
-strength: 1181 , time: 43915 
-strength: 1175 , time: 44115 
-strength: 1172 , time: 44315 
-strength: 1166 , time: 44515 
-strength: 1151 , time: 44715 
-strength: 1158 , time: 44915 
-strength: 1139 , time: 45115 
-strength: 1132 , time: 45315 
-strength: 1129 , time: 45515 
-strength: 1116 , time: 45715 
-strength: 1110 , time: 45915 
-strength: 1102 , time: 46116 
-strength: 1097 , time: 46316 
-strength: 1085 , time: 46516 
-strength: 1085 , time: 46716 
-strength: 1080 , time: 46916 
-strength: 1077 , time: 47116 
-strength: 1071 , time: 47316 
-strength: 1066 , time: 47516 
-strength: 1059 , time: 47716 
-strength: 1056 , time: 47916 
-strength: 1046 , time: 48116 
-strength: 1043 , time: 48316 
-strength: 1040 , time: 48516 
-strength: 1029 , time: 48716 
-strength: 1033 , time: 48917 
-strength: 1017 , time: 49117 
-strength: 1016 , time: 49317 
-strength: 1013 , time: 49517 
-strength: 1010 , time: 49717 
-strength: 998 , time: 49917 
-strength: 991 , time: 50117 
-strength: 987 , time: 50317 
-strength: 994 , time: 50517 
-strength: 973 , time: 50717 
-strength: 966 , time: 50917 
-strength: 949 , time: 51117 
-strength: 959 , time: 51317 
-strength: 954 , time: 51517 
-strength: 947 , time: 51717 
-strength: 944 , time: 51918 
-strength: 943 , time: 52118 
-strength: 940 , time: 52318 
-strength: 931 , time: 52518 
-strength: 925 , time: 52718 
-strength: 924 , time: 52918 
-strength: 920 , time: 53118 
-strength: 905 , time: 53318 
-strength: 900 , time: 53518 
-strength: 896 , time: 53718 
-strength: 892 , time: 53918 
-strength: 889 , time: 54118 
-strength: 867 , time: 54318 
-strength: 857 , time: 54518 
-strength: 855 , time: 54718 
-strength: 853 , time: 54919 
-strength: 849 , time: 55119 
-strength: 833 , time: 55319 
-strength: 835 , time: 55519 
-strength: 833 , time: 55719 
-strength: 817 , time: 55919 
-strength: 821 , time: 56119 
-strength: 817 , time: 56319 
-strength: 814 , time: 56519 
-strength: 809 , time: 56719 
-strength: 801 , time: 56919 
-strength: 805 , time: 57119 
-strength: 801 , time: 57319 
-strength: 788 , time: 57519 
-strength: 780 , time: 57719 
-strength: 776 , time: 57920 
-strength: 778 , time: 58120 
-strength: 767 , time: 58320 
-strength: 768 , time: 58520 
-strength: 762 , time: 58720 
-strength: 748 , time: 58920 
-strength: 749 , time: 59120 
-strength: 740 , time: 59320 
-strength: 734 , time: 59520 
-strength: 733 , time: 59720 
-strength: 725 , time: 59920 
-strength: 727 , time: 60120 
-strength: 712 , time: 60320 
-strength: 707 , time: 60520 
-strength: 719 , time: 60720 
-strength: 706 , time: 60921 
-strength: 712 , time: 61121 
-strength: 709 , time: 61321 
-strength: 705 , time: 61521 
-strength: 710 , time: 61721 
-strength: 711 , time: 61921 
-strength: 705 , time: 62121 
-strength: 714 , time: 62321 
-strength: 703 , time: 62521 
-strength: 709 , time: 62721 
-strength: 709 , time: 62921 
-strength: 708 , time: 63121 
-strength: 702 , time: 63321 
-strength: 710 , time: 63521 
-strength: 710 , time: 63721 
-strength: 711 , time: 63922 
-strength: 699 , time: 64122 
-strength: 707 , time: 64322 
-strength: 708 , time: 64522 
-strength: 709 , time: 64722 
-strength: 710 , time: 64922 
-strength: 709 , time: 65122 
-strength: 703 , time: 65322 
-strength: 703 , time: 65522 
-strength: 707 , time: 65722 
-strength: 701 , time: 65922 
-strength: 702 , time: 66122 
-strength: 708 , time: 66322 
-strength: 701 , time: 66522 
-strength: 722 , time: 66722 
-strength: 705 , time: 66922 
-strength: 705 , time: 67123 
-strength: 697 , time: 67323 
-strength: 703 , time: 67523 
-strength: 707 , time: 67723 
-strength: 699 , time: 67923 
-strength: 705 , time: 68123 
-strength: 709 , time: 68323 
-strength: 700 , time: 68523 
-strength: 700 , time: 68723 
-strength: 701 , time: 68923 
-strength: 704 , time: 69123 
-strength: 704 , time: 69323 
-strength: 704 , time: 69523 
-strength: 704 , time: 69723 
-strength: 696 , time: 69923 
-strength: 699 , time: 70124 
-strength: 703 , time: 70324 
-strength: 699 , time: 70524 
-strength: 697 , time: 70724 
-strength: 700 , time: 70924 
-strength: 707 , time: 71124 
-strength: 704 , time: 71324 
-strength: 715 , time: 71524 
-strength: 705 , time: 71724 
-strength: 701 , time: 71924 
+2120 , 500 
+2118 , 700 
+2111 , 900 
+2114 , 1100 
+2115 , 1300 
+2095 , 1500 
+2088 , 1700 
+2096 , 1900 
+2085 , 2100 
+2085 , 2300 
+2083 , 2501 
+2099 , 2701 
+2075 , 2901 
+2076 , 3101 
+2076 , 3301 
+2068 , 3501 
+2069 , 3701 
+2047 , 3901 
+2066 , 4101 
+2064 , 4301 
+2064 , 4501 
+2059 , 4701 
+2062 , 4901 
+2054 , 5101 
+2054 , 5301 
+2054 , 5502 
+2045 , 5702 
+2055 , 5902 
+2042 , 6102 
+2031 , 6302 
+2036 , 6502 
+2034 , 6702 
+2035 , 6902 
+2034 , 7102 
+2031 , 7302 
+2025 , 7502 
+2019 , 7702 
+2014 , 7902 
+2013 , 8102 
+2013 , 8302 
+2007 , 8503 
+2006 , 8703 
+2000 , 8903 
+1995 , 9103 
+2001 , 9303 
+1990 , 9503 
+1987 , 9703 
+1980 , 9903 
+1983 , 10103 
+1979 , 10303 
+1976 , 10503 
+1974 , 10703 
+1964 , 10903 
+1971 , 11103 
+1959 , 11303 
+1961 , 11504 
+1956 , 11704 
+1949 , 11904 
+1946 , 12104 
+1954 , 12304 
+1944 , 12504 
+1942 , 12704 
+1939 , 12904 
+1933 , 13104 
+1934 , 13304 
+1932 , 13504 
+1930 , 13704 
+1925 , 13904 
+1914 , 14104 
+1907 , 14305 
+1915 , 14505 
+1910 , 14705 
+1903 , 14905 
+1892 , 15105 
+1877 , 15305 
+1883 , 15505 
+1874 , 15705 
+1875 , 15905 
+1865 , 16105 
+1865 , 16305 
+1858 , 16505 
+1861 , 16705 
+1843 , 16905 
+1849 , 17105 
+1837 , 17306 
+1837 , 17506 
+1834 , 17706 
+1841 , 17906 
+1822 , 18106 
+1824 , 18306 
+1822 , 18506 
+1820 , 18706 
+1815 , 18906 
+1814 , 19106 
+1807 , 19306 
+1805 , 19506 
+1797 , 19706 
+1800 , 19906 
+1788 , 20107 
+1785 , 20307 
+1781 , 20507 
+1787 , 20707 
+1770 , 20907 
+1769 , 21107 
+1764 , 21307 
+1761 , 21507 
+1754 , 21707 
+1747 , 21907 
+1745 , 22107 
+1742 , 22307 
+1738 , 22507 
+1727 , 22707 
+1742 , 22908 
+1713 , 23108 
+1722 , 23308 
+1710 , 23508 
+1709 , 23708 
+1704 , 23908 
+1697 , 24108 
+1698 , 24308 
+1696 , 24508 
+1689 , 24708 
+1682 , 24908 
+1687 , 25108 
+1680 , 25308 
+1669 , 25508 
+1675 , 25708 
+1657 , 25909 
+1658 , 26109 
+1642 , 26309 
+1645 , 26509 
+1642 , 26709 
+1632 , 26909 
+1628 , 27109 
+1630 , 27309 
+1625 , 27509 
+1602 , 27709 
+1611 , 27909 
+1598 , 28109 
+1588 , 28309 
+1597 , 28509 
+1581 , 28710 
+1578 , 28910 
+1577 , 29110 
+1574 , 29310 
+1567 , 29510 
+1562 , 29710 
+1565 , 29910 
+1558 , 30110 
+1546 , 30310 
+1544 , 30510 
+1544 , 30710 
+1538 , 30910 
+1536 , 31110 
+1522 , 31310 
+1524 , 31510 
+1510 , 31711 
+1514 , 31911 
+1506 , 32111 
+1498 , 32311 
+1494 , 32511 
+1484 , 32711 
+1483 , 32911 
+1476 , 33111 
+1469 , 33311 
+1466 , 33511 
+1462 , 33711 
+1456 , 33911 
+1452 , 34111 
+1444 , 34311 
+1443 , 34512 
+1438 , 34712 
+1432 , 34912 
+1433 , 35112 
+1423 , 35312 
+1417 , 35512 
+1411 , 35712 
+1413 , 35912 
+1398 , 36112 
+1393 , 36312 
+1392 , 36512 
+1376 , 36712 
+1375 , 36912 
+1367 , 37112 
+1356 , 37313 
+1358 , 37513 
+1346 , 37713 
+1333 , 37913 
+1329 , 38113 
+1322 , 38313 
+1319 , 38513 
+1316 , 38713 
+1312 , 38913 
+1308 , 39113 
+1299 , 39313 
+1297 , 39513 
+1296 , 39713 
+1290 , 39913 
+1277 , 40113 
+1282 , 40314 
+1287 , 40514 
+1266 , 40714 
+1260 , 40914 
+1250 , 41114 
+1237 , 41314 
+1246 , 41514 
+1229 , 41714 
+1233 , 41914 
+1220 , 42114 
+1215 , 42314 
+1213 , 42514 
+1206 , 42714 
+1208 , 42914 
+1199 , 43115 
+1193 , 43315 
+1189 , 43515 
+1184 , 43715 
+1181 , 43915 
+1175 , 44115 
+1172 , 44315 
+1166 , 44515 
+1151 , 44715 
+1158 , 44915 
+1139 , 45115 
+1132 , 45315 
+1129 , 45515 
+1116 , 45715 
+1110 , 45915 
+1102 , 46116 
+1097 , 46316 
+1085 , 46516 
+1085 , 46716 
+1080 , 46916 
+1077 , 47116 
+1071 , 47316 
+1066 , 47516 
+1059 , 47716 
+1056 , 47916 
+1046 , 48116 
+1043 , 48316 
+1040 , 48516 
+1029 , 48716 
+1033 , 48917 
+1017 , 49117 
+1016 , 49317 
+1013 , 49517 
+1010 , 49717 
+998 , 49917 
+991 , 50117 
+987 , 50317 
+994 , 50517 
+973 , 50717 
+966 , 50917 
+949 , 51117 
+959 , 51317 
+954 , 51517 
+947 , 51717 
+944 , 51918 
+943 , 52118 
+940 , 52318 
+931 , 52518 
+925 , 52718 
+924 , 52918 
+920 , 53118 
+905 , 53318 
+900 , 53518 
+896 , 53718 
+892 , 53918 
+889 , 54118 
+867 , 54318 
+857 , 54518 
+855 , 54718 
+853 , 54919 
+849 , 55119 
+833 , 55319 
+835 , 55519 
+833 , 55719 
+817 , 55919 
+821 , 56119 
+817 , 56319 
+814 , 56519 
+809 , 56719 
+801 , 56919 
+805 , 57119 
+801 , 57319 
+788 , 57519 
+780 , 57719 
+776 , 57920 
+778 , 58120 
+767 , 58320 
+768 , 58520 
+762 , 58720 
+748 , 58920 
+749 , 59120 
+740 , 59320 
+734 , 59520 
+733 , 59720 
+725 , 59920 
+727 , 60120 
+712 , 60320 
+707 , 60520 
+719 , 60720 
+706 , 60921 
+712 , 61121 
+709 , 61321 
+705 , 61521 
+710 , 61721 
+711 , 61921 
+705 , 62121 
+714 , 62321 
+703 , 62521 
+709 , 62721 
+709 , 62921 
+708 , 63121 
+702 , 63321 
+710 , 63521 
+710 , 63721 
+711 , 63922 
+699 , 64122 
+707 , 64322 
+708 , 64522 
+709 , 64722 
+710 , 64922 
+709 , 65122 
+703 , 65322 
+703 , 65522 
+707 , 65722 
+701 , 65922 
+702 , 66122 
+708 , 66322 
+701 , 66522 
+722 , 66722 
+705 , 66922 
+705 , 67123 
+697 , 67323 
+703 , 67523 
+707 , 67723 
+699 , 67923 
+705 , 68123 
+709 , 68323 
+700 , 68523 
+700 , 68723 
+701 , 68923 
+704 , 69123 
+704 , 69323 
+704 , 69523 
+704 , 69723 
+696 , 69923 
+699 , 70124 
+703 , 70324 
+699 , 70524 
+697 , 70724 
+700 , 70924 
+707 , 71124 
+704 , 71324 
+715 , 71524 
+705 , 71724 
+701 , 71924 
