@@ -5,6 +5,14 @@
 #define DC2 18
 #define CurrentControlDC 4
 
+//Define pins for the motor driver L7207N
+#define CurrentControlA 5
+#define CurrentControlB 6
+#define StepperA1 23
+#define StepperA2 22
+#define StepperB1 21
+#define StepperB2 20
+
 volatile long Ticks1 = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks1 = 0L;
 
@@ -29,6 +37,7 @@ volatile int IA;
 volatile int IB;
 volatile int MaxCurrent = 1000;
 volatile long steps = 0L;          //Global variable storing motor Steps
+volatile int cycleSteps = steps;
 volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
 volatile float LastStepperSpeed1 = 0;
 volatile float LastStepperSpeed2 = 0;
@@ -39,8 +48,9 @@ volatile float stepperAccel2 = 0;
 volatile long steppingPeriod = 5 ;
 float MaxSpeed = 10;
 volatile long targetPOS = 100000000 ;
+float motorTorqueConstant = 0.00531*810;
 
-unsigned int pollingRatio = 20;              //Refresh time of the main loop expressed in millinseconds
+int pollingRatio = 20;              //Refresh time of the main loop expressed in millinseconds
 
 char cmd;
 
@@ -48,16 +58,16 @@ volatile unsigned long previousTime;
 volatile unsigned long previousStepTime;
 
 float km = 1;
-float ks = 2;
+float ks = 40;
 float bm = 1;
-float bs = 2;
-float ROMratio = 6;
+float bs = 4;
+float ROMratio = 5.33;
 float masterForce;
 float slaveForce;
 float scale = 1;
 float targetSpeed;
 int kp = 200;
-
+float lastPositionDifference = 0;
 
 void setup()
 {
@@ -70,12 +80,14 @@ void setup()
   initialiseForceTransducer();
   initialiseGcodeIntrerpreter();
 
+  Ticks2 = 0;
   previousTime = millis();
   previousStepTime = millis();
   interrupts();
 
   moveForward();
   //moveBackward();
+  MaxCurrent = 100;
 }
 
 void loop() {
@@ -83,32 +95,47 @@ void loop() {
   if (currentTime - previousTime >= pollingRatio)  //execute the following code every every 2 milliseconds
   {
     
-    previousTime = currentTime;
+    /*previousTime = currentTime;
     updateSpeed1();
     updateAcceleration1();
     updateSpeed2();
     updateAcceleration2();
-    if(abs(Ticks2)<200){
-      targetSpeed = 0;
+    
+    float positionDifference = float(Ticks2-ROMratio*Ticks1)*PI/512;
+    float speedDifference = (positionDifference-lastPositionDifference)/pollingRatio;
+    lastPositionDifference = positionDifference;
+    masterForce = -(km*(positionDifference)+bm*(speedDifference));
+    slaveForce = (ks*(positionDifference)+bs*(speedDifference));
+    if (slaveForce>0){
+      ForwardDC();
     }
     else{
-      targetSpeed = 100.0;
+      BackwardDC();
     }
-    float speedError = targetSpeed - float(ROMratio)*float(stepperSpeed1);
-    float controlSignal = kp*speedError;
-    
-    /*
-    float positionDifference = ROMratio*Ticks1-Ticks2;
-    float speedDifference = ROMratio*stepperSpeed1-stepperSpeed2;
-    masterForce = -(km*(positionDifference)+bm(speedDifference));
-    slaveForce = ks*(positionDifference)+bs(speedDifference);
-    Serial.printf("%f , %f \n", masterForce, slaveForce));
-    */
-    ForwardDC();
+    if (masterForce>0){
+      moveForward();
+    }
+    else{
+      moveBackward();
+    }
+    float currentTarget = slaveForce/motorTorqueConstant;
+    float controlSignal = abs(currentTarget/0.003);
     setCurrentDC(static_cast<int>(controlSignal));
-    int voltageRead = analogRead(A14);
-    Serial.printf("%d , %f , %d,  %f , %f , %f , %d \n",Ticks2 , targetSpeed, Ticks1, stepperSpeed1 , speedError, controlSignal , voltageRead);
-  }
+    MaxCurrent = 1024 * int(round(masterForce)) / 0.9;
+    Serial.printf("%d , %f \n",MaxCurrent, positionDifference);*/
+    //Serial.printf("%d, %f, %f, %f, %f, %f, %f\n",Ticks2 , Ticks1*ROMratio, positionDifference , speedDifference , slaveForce , currentTarget ,   controlSignal );
+    microstep();
+    //Serial.printf("%d, %d\n",Ticks2, steps );
+    
+    /*ForwardDC();
+    setCurrentDC(300);
+    Serial.printf("%d, %d \n",Ticks1);*/
+    
+    /*int voltageRead = analogRead(A14);
+    ForwardDC();
+    setCurrentDC(500);
+    Serial.printf("%d, %d, %f \n",Ticks1, voltageRead, stepperSpeed1);*/
+}
 
   /*if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed
   {

@@ -1,12 +1,3 @@
-//Define pins for the motor driver L7207N
-#define CurrentControlA 5
-#define CurrentControlB 6
-#define StepperA1 23
-#define StepperA2 22
-#define StepperB1 21
-#define StepperB2 20
-
-
 void initialiseStepperDriver()
 {
   //Set the pins connected to the motor driver as outputs
@@ -23,6 +14,8 @@ void initialiseStepperDriver()
 
   analogWrite(CurrentControlA, 1000);
   analogWrite(CurrentControlB, 0);
+
+  bridgeState();
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
@@ -85,7 +78,7 @@ void microstep()
   if (stepperState == 1)
   {
   
-    steps = (Ticks1 % 20) + 1;
+    //steps = (abs(Ticks2) % 20)+1;
       
     if (steps < 5)
     {
@@ -112,7 +105,7 @@ void microstep()
   {
     {
 
-      steps = (Ticks1 % 20) - 1;
+      steps = (Ticks2 % 20) - 1;
       
       if (steps < 5)
       {
@@ -143,6 +136,14 @@ void microstep()
   IB = (int) currentB;
   setCurrentA();
   setCurrentB();
+  if (steps >= 19)
+  {
+    steps = 0;
+  }
+  else
+  {
+    steps++;
+  }
 }
 
 void bridgeState()
