@@ -1,17 +1,12 @@
+#define CurrentControlDC 4
+#define DC1 19
+#define DC2 18
+
 volatile long Ticks1 = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks1 = 0L;
 
 volatile long Ticks2 = 0L;          //Global variable storing encoder ticks
 volatile long lastTicks2 = 0L;
-
-//int sine[32] =  {1,17,32,47,60,70,78,85,85,78,70,60,47,32,17,1,-1,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,-1};
-//int cosine[32] =  {85,78,70,60,47,32,17,1,-1,-17,-32,-47,-60,-70,-78,-85,-85,-78,-70,-60,-47,-32,-17,-1,1,17,32,47,60,70,78,85};
-
-//int sine[32] =  {0,8,16,24,30,35,39,42,42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42,-42,-39,-35,-30,-24,-16,-8,0};
-//int cosine[32] =  {42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42,-42,-39,-35,-30,-24,-16,-8,0,0,8,16,24,30,35,39,42};
-//int cosineR[32] =  {-42,-39,-35,-30,-24,-16,-8,0,0,8,16,24,30,35,39,42,42,39,35,30,24,16,8,0,0,-8,-16,-24,-30,-35,-39,-42};
-
-//float sine[16] = {0.0, 0.09, 0.19, 0.29, 0.38, 0.47, 0.55, 0.63, 0.70, 0.77, 0.83, 0.88, 0.92, 0.95, 0.98, 0.99};
 
 float sine[5] = {0.0, 0.38, 0.71, 0.92, 1.0};
 
@@ -23,7 +18,8 @@ volatile int IB;
 volatile int MaxCurrent = 1000;
 volatile long steps = 0L;          //Global variable storing motor Steps
 volatile int stepperState = 0;     //Flag defining the stepper motor behaviour 0 = still, 1 = moving forward, 2 = moving backward
-volatile double LastStepperSpeed = 0;
+volatile double LastStepperSpeed1 = 0;
+volatile double LastStepperSpeed2 = 0;
 volatile double stepperSpeed1 = 0;
 volatile double stepperAccel1 = 0;
 volatile double stepperSpeed2 = 0;
@@ -51,6 +47,9 @@ void setup()
 
   previousTime = millis();
   previousStepTime = millis();
+
+  Serial.begin(9600);
+  
   interrupts();
 
   moveForward();
@@ -62,12 +61,14 @@ void loop() {
   if (currentTime - previousTime >= pollingRatio)  //execute the following code every every 2 milliseconds
   {
     previousTime = currentTime;
-    updateSpeed1();
+
+    Serial.printf("ticks1: %d , ticks2: %d /n", Ticks1, Ticks2);
+    /*updateSpeed1();
     updateAcceleration1();
     updateSpeed2();
     updateAcceleration2();
     masterForce = -(km*(Gm*Ticks1-Gs*Ticks2)+bm(Gm*stepperSpeed1-Gs*stepperSpeed2));
-    slaveForce = ks*(Gm*Ticks1-Gs*Ticks2)+bm(Gm*stepperSpeed1-Gs*stepperSpeed2);
+    slaveForce = ks*(Gm*Ticks1-Gs*Ticks2)+bm(Gm*stepperSpeed1-Gs*stepperSpeed2);*/
   }
 
   if (currentTime - previousStepTime >= steppingPeriod)  //execute the following whenever a step is needed

@@ -17,8 +17,6 @@ void initialiseStepperDriver()
   pinMode(StepperB1, OUTPUT);
   pinMode(StepperB2, OUTPUT);
 
-  digitalWrite(EnableA, HIGH);
-  digitalWrite(EnableB, HIGH);
 
   analogWriteFrequency(CurrentControlA, 46875);
   analogWriteFrequency(CurrentControlB, 46875);

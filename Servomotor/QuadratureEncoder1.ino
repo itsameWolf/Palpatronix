@@ -9,11 +9,11 @@ void initialiseEncoder1()
   pinMode(EncoderB1, INPUT);
 
   //Enable interrupts for the pins connected to channel A of the encoder for both rising and falling edge
-  attachInterrupt(digitalPinToInterrupt(EncoderA1), Arising, RISING);
-  attachInterrupt(digitalPinToInterrupt(EncoderA1), Afalling, FALLING);
+  attachInterrupt(digitalPinToInterrupt(EncoderA1), Arising1, RISING);
+  attachInterrupt(digitalPinToInterrupt(EncoderA1), Afalling1, FALLING);
   //Enable interrupts for the pins connected to channel B of the encoder for both rising and falling edge
-  attachInterrupt(digitalPinToInterrupt(EncoderB1), Brising, RISING);
-  attachInterrupt(digitalPinToInterrupt(EncoderB1), Bfalling, FALLING);
+  attachInterrupt(digitalPinToInterrupt(EncoderB1), Brising1, RISING);
+  attachInterrupt(digitalPinToInterrupt(EncoderB1), Bfalling1, FALLING);
 }
 
 ////////////////////////////////////Dynamic Readings////////////////////////////////////

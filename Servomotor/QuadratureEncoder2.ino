@@ -9,11 +9,11 @@ void initialiseEncoder2()
   pinMode(EncoderB2, INPUT);
 
   //Enable interrupts for the pins connected to channel A of the encoder for both rising and falling edge
-  attachInterrupt(digitalPinToInterrupt(EncoderA2), Arising, RISING);
-  attachInterrupt(digitalPinToInterrupt(EncoderA2), Afalling, FALLING);
+  attachInterrupt(digitalPinToInterrupt(EncoderA2), Arising2, RISING);
+  attachInterrupt(digitalPinToInterrupt(EncoderA2), Afalling2, FALLING);
   //Enable interrupts for the pins connected to channel B of the encoder for both rising and falling edge
-  attachInterrupt(digitalPinToInterrupt(EncoderB2), Brising, RISING);
-  attachInterrupt(digitalPinToInterrupt(EncoderB2), Bfalling, FALLING);
+  attachInterrupt(digitalPinToInterrupt(EncoderB2), Brising2, RISING);
+  attachInterrupt(digitalPinToInterrupt(EncoderB2), Bfalling2, FALLING);
 }
 
 ////////////////////////////////////Dynamic Readings////////////////////////////////////
@@ -25,7 +25,7 @@ void updateSpeed2()
 
 void updateAcceleration2()
 {
-  stepperAccel2 = (stepperSpeed2 - LastStepperSpeed2) / pollingRatio2;
+  stepperAccel2 = (stepperSpeed2 - LastStepperSpeed2) / pollingRatio;
   LastStepperSpeed2 = stepperSpeed2;
 }
 

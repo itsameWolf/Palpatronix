@@ -1,7 +1,5 @@
 //Define pins for the motor driver L7207N
-#define CurrentControlDC 4
-#define DC1 19
-#define DC2 18
+
 
 void initialiseDCDriver()
 {
@@ -21,7 +19,7 @@ void initialiseDCDriver()
 
 void MoveTo(long Target)
 {
-  setCurrentDC(Target - Ticks2)); //Speed decreases as the motor moves closer to the desired position
+  setCurrentDC(Target - Ticks2); //Speed decreases as the motor moves closer to the desired position
   if (Target - steps > 0)
   {
     ForwardDC();
@@ -36,7 +34,7 @@ void MoveTo(long Target)
 void setCurrentDC(int I)
 {
   int i = abs(I);
-  analogWrite(CurrentControl, i);
+  analogWrite(CurrentControlDC, i);
 }
 
 void ForwardDC()
