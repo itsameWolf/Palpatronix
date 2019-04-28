@@ -1,4 +1,6 @@
 //Define pins for the motor driver L7207N
+#define EnableA 3
+#define EnableB 4
 #define CurrentControlA 5
 #define CurrentControlB 6
 #define StepperA1 23
@@ -10,6 +12,8 @@
 void initialiseStepperDriver()
 {
   //Set the pins connected to the motor driver as outputs
+  pinMode(EnableA, OUTPUT);
+  pinMode(EnableB, OUTPUT);
   pinMode(CurrentControlA, OUTPUT);
   pinMode(CurrentControlB, OUTPUT);
   pinMode(StepperA1, OUTPUT);
@@ -17,12 +21,15 @@ void initialiseStepperDriver()
   pinMode(StepperB1, OUTPUT);
   pinMode(StepperB2, OUTPUT);
 
+  digitalWrite(EnableA, HIGH);
+  digitalWrite(EnableB, HIGH);
+
   analogWriteFrequency(CurrentControlA, 46875);
   analogWriteFrequency(CurrentControlB, 46875);
   analogWriteResolution(10);
 
-  analogWrite(CurrentControlA, 1000);
-  analogWrite(CurrentControlB, 0);
+  analogWrite(CurrentControlA, 5);
+  analogWrite(CurrentControlB, 5);
 }
 
 //////////////////////////////////Motion Functions//////////////////////////////////
@@ -81,58 +88,53 @@ void BBackward()
 }
 
 void microstep()
-{ 
+{
+
   if (stepperState == 1)
   {
-  
-    steps = (Ticks1 % 20) + 1;
-      
-    if (steps < 5)
+    if (steps < 16)
     {
-      currentA = sine[(steps % 5)];
-      currentB = sine[(4 - (steps % 5))];
+      currentA = sine[(steps % 16)];
+      currentB = sine[(15 - (steps % 16))];
     }
-    else if (steps < 10)
+    else if (steps < 32)
     {
-      currentA = sine[(4 - (steps % 5))];
-      currentB = -(sine[(steps % 5)]);
+      currentA = sine[(15 - (steps % 16))];
+      currentB = -(sine[(steps % 16)]);
     }
-    else if (steps < 15)
+    else if (steps < 48)
     {
-      currentA = -(sine[(steps % 5)]);
-      currentB = -(sine[(4 - (steps % 5))]);
+      currentA = -(sine[(steps % 16)]);
+      currentB = -(sine[(15 - (steps % 16))]);
     }
     else
     {
-      currentA = -(sine[(4 - (steps % 5))]);
-      currentB = sine[(steps % 5)];
+      currentA = -(sine[(15 - (steps % 16))]);
+      currentB = sine[(steps % 16)];
     }
   }
   else if (stepperState == 2)
   {
     {
-
-      steps = (Ticks1 % 20) - 1;
-      
-      if (steps < 5)
+      if (steps < 16)
       {
-        currentA = sine[(steps % 5)];
-        currentB = -(sine[(4 - (steps % 5))]);
+        currentA = sine[(steps % 16)];
+        currentB = -(sine[(15 - (steps % 16))]);
       }
-      else if (steps < 10)
+      else if (steps < 32)
       {
-        currentA = sine[(4 - (steps % 5))];
-        currentB = sine[(steps % 5)];
+        currentA = sine[(15 - (steps % 16))];
+        currentB = sine[(steps % 16)];
       }
-      else if (steps < 15)
+      else if (steps < 48)
       {
-        currentA = -(sine[(steps % 5)]);
-        currentB = sine[(4 - (steps % 5))];
+        currentA = -(sine[(steps % 16)]);
+        currentB = sine[(15 - (steps % 16))];
       }
       else
       {
-        currentA = -(sine[(4 - (steps % 5))]);
-        currentB = -(sine[(steps % 5)]);
+        currentA = -(sine[(15 - (steps % 16))]);
+        currentB = -(sine[(steps % 16)]);
       }
     }
   }
@@ -143,6 +145,14 @@ void microstep()
   IB = (int) currentB;
   setCurrentA();
   setCurrentB();
+  if (steps >= 63)
+  {
+    steps = 0;
+  }
+  else
+  {
+    steps++;
+  }
 }
 
 void bridgeState()

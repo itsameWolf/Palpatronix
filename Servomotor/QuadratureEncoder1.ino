@@ -19,7 +19,7 @@ void initialiseEncoder1()
 ////////////////////////////////////Dynamic Readings////////////////////////////////////
 void updateSpeed1()
 {
-  stepperSpeed1 = (Ticks1 - lastTicks1) / pollingRatio;
+  stepperSpeed1 =(float(Ticks1) - float(lastTicks1)) / float(pollingRatio);
   lastTicks1 = Ticks1;
 }
 

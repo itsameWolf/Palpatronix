@@ -1,6 +1,3 @@
-//Define pins for the motor driver L7207N
-
-
 void initialiseDCDriver()
 {
   //Set the pins connected to the motor driver as outputs
